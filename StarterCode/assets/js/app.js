@@ -132,8 +132,9 @@ d3.csv("assets/data/data.csv").then(function(Data, err) {
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
-    .attr("fill", "pink")
-    .attr("opacity", ".5");
+    .attr("fill", "blue")
+    .attr("opacity", ".5")
+    .text(Data.abbr);
 
   // Create group for  2 x- axis labels
   var labelsGroup = chartGroup.append("g")
@@ -151,7 +152,7 @@ d3.csv("assets/data/data.csv").then(function(Data, err) {
     .attr("y", 40)
     .attr("value", "income") // value to grab for event listener
     .classed("inactive", true)
-    .text("income(%)");
+    .text("income($)");
 
   // append y axis
   chartGroup.append("text")
@@ -191,7 +192,7 @@ d3.csv("assets/data/data.csv").then(function(Data, err) {
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
         // changes classes to change bold text
-        if (chosenXAxis === "income") {
+        if (chosenXAxis === "poverty") {
           povertyLabel
             .classed("active", true)
             .classed("inactive", false);
