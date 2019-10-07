@@ -133,8 +133,15 @@ d3.csv("assets/data/data.csv").then(function(Data, err) {
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
     .attr("fill", "blue")
-    .attr("opacity", ".5")
-    .text(Data.abbr);
+    .attr("opacity", ".5");
+
+  chartGroup.selectAll("text")
+    .data(Data)
+    .enter()
+    .append("text")
+    .text((d) => (d["abbr"]))
+    .attr("x", (d, i) => xLinearScale(d[chosenXAxis]))
+    .attr("y", (d, i) => yLinearScale(d.healthcare));
 
   // Create group for  2 x- axis labels
   var labelsGroup = chartGroup.append("g")
@@ -165,6 +172,7 @@ d3.csv("assets/data/data.csv").then(function(Data, err) {
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+  //var circleTextGroup = updateToolTip(chosenXAxis, circleTextGroup);
 
   // x axis labels event listener
   labelsGroup.selectAll("text")
